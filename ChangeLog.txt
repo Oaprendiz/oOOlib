@@ -6,6 +6,17 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+
+2017-11-27 23:40 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
+  + src/content.prg
+  + src/manifest.prg
+  + src/meta.prg
+  + src/ooolib.prg
+  + src/settings.prg
+  + src/sheet.prg
+  + test/test001.prg
+    ; primeiro ensaio
+
 2017-11-27 2:23 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
   + test/000/T001.prg
   + test/000/T002.prg
