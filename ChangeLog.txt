@@ -1,0 +1,21 @@
+/* Use this format for entry headers:
+   YYYY-MM-DD HH:MM UTC[-|+]hhmm Your Full Name (your_email address)
+   2013-12-31 13:59 UTC+0100 Foo Bar (foo.bar foobar.org)
+   See copyright/license at the end of the file.
+   Encoding: UTF-8 (No BOM)  Notation (in 5th position):
+     * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
+ */
+
+2017-11-27 21:03 UTC Oaprendiz (jorgenunes5+prog gmail.com)
+  * .gitattributes
+  + .gitignore
+  + ChangeLog.txt
+  + README.md
+    ; Inicial commit
+
+2017-11-27 19:28 UTC Oaprendiz (jorgenunes5+prog gmail.com)
+  + .gitattributes
+
+/*
+   This work is licensed under the 
+ */
