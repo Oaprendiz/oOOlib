@@ -6,6 +6,13 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+2017-11-27 21:25 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
+  * README.md
+    ;
+  + bin/check.hb
+  + bin/commit.hb
+    ; Copiado Harbour 3.2.0dev (r1404031226)
+
 2017-11-27 21:03 UTC Oaprendiz (jorgenunes5+prog gmail.com)
   * .gitattributes
   + .gitignore
@@ -19,3 +26,4 @@
 /*
    This work is licensed under the 
  */
+
