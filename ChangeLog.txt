@@ -6,6 +6,19 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+2017-11-27 2:23 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
+  + test/000/T001.prg
+  + test/000/T002.prg
+  + test/000/T003.prg
+  + test/000/T004.prg
+  + test/000/T005.prg
+  + test/000/T006.prg
+  + test/000/T007.prg
+  + test/000/T008.prg
+  + test/000/T009.prg
+  + test/000/Z000.prg
+  + test/000/novo.ods
+
 2017-11-27 21:25 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
   * README.md
     ;
@@ -26,4 +39,3 @@
 /*
    This work is licensed under the 
  */
-
