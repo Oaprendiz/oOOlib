@@ -6,6 +6,20 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+2017-11-29 22:41 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
+  - src/ooolib.prg
+    ;removido e substituido por desktop
+  + src/desktop.prg
+    ;substitui ooolib
+    ;contem funções basicas
+  + src/document.prg
+    ;estrutura basica da class
+  * src/content.prg
+   * alteração do nome de METHOD de 'Read' para 'Load'
+  * src/sheet.prg
+   * alteração do nome de METHOD de 'New' para 'Load'
+	  melhoria da rotina 'Load'
+	* getByIndex aceita 0 como primeira posição
 
 2017-11-27 23:40 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
   + src/content.prg
@@ -17,7 +31,7 @@
   + test/test001.prg
     ; primeiro ensaio
 
-2017-11-27 2:23 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
+2017-11-27 23:23 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
   + test/000/T001.prg
   + test/000/T002.prg
   + test/000/T003.prg

@@ -12,6 +12,7 @@ obj
 *.hbd
 *.hbr
 *.hrb
+/test/001/
 
 # 'install'-ed binaries
 *.exe

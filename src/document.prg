@@ -1,27 +1,39 @@
 #include "hbclass.ch"
 
-CLASS oOOcontent
+CLASS document
+DATA HasLocation
+DATA GetLocation
+DATA IsReadOnly
+
 DATA Cargo
 DATA oBody
 
 METHOD Load(cPath)
+METHOD Store() VIRTUAL
+METHOD StoreAsURL(cURL, oProperties) VIRTUAL       //save as...
+METHOD StoreToURL(cURL, oProperties) VIRTUAL
+METHOD Print() VIRTUAL
+METHOD StyleFamilies() VIRTUAL
+METHOD Sheets(nPos) VIRTUAL
+METHOD GetSheets() VIRTUAL
+METHOD CreateInstance() VIRTUAL        //"com.sun.star.sheet.Spreadsheet"
 ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Load(cPath) CLASS oOOcontent
+METHOD Load(cPath) CLASS document
 ::Cargo := HXMLDoc():Read(cPath + "\content.xml")
 ::oBody := ::Cargo:aItems[1]:Find("office:body")
 Return Self
 
 //---------------------------------------------------------------------//
 
-METHOD getSheets() CLASS oOOcontent
+METHOD getSheets() CLASS document
 Return ::oBody:Find("office:spreadsheet")
 
 //---------------------------------------------------------------------//
 
-METHOD getByName(cName) CLASS oOOcontent
+METHOD getByName(cName) CLASS document
 Return ::oBody:Find("office:spreadsheet")
 
 //---------------------------------------------------------------------//
