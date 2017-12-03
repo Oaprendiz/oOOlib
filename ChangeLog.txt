@@ -6,6 +6,17 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+2017-12-03 21:50 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
+  * src/desktop.prg
+    + DATA aItems
+	 + METHOD Add(oDoc)
+	   ; Para manter control dos documentos abertos
+  + src/row.prg
+    ;contem funções basicas
+  + src/cell.prg
+    ;contem funções basicas
+    ;Class ShadowFormat
+
 2017-11-29 22:41 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
   - src/ooolib.prg
     ;removido e substituido por desktop
@@ -13,7 +24,7 @@
     ;substitui ooolib
     ;contem funções basicas
   + src/document.prg
-    ;estrutura basica da class
+    ;estrutura basica da CLASS
   * src/content.prg
    * alteração do nome de METHOD de 'Read' para 'Load'
   * src/sheet.prg

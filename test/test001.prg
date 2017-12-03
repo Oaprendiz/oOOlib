@@ -1,10 +1,3 @@
-/*
-#require "hbwin"
-
-#include "fileio.ch"
-#include "hbclass.ch"
-#include "hxml.ch"
-*/
 Function Main()
 LOCAL oDoc, oSheet
 LOCAL cFile := HB_PathNormalize(hb_DirSepToOS(HB_DirBase() + "../000/novo.ods" ))
@@ -12,11 +5,12 @@ LOCAL cFile := HB_PathNormalize(hb_DirSepToOS(HB_DirBase() + "../000/novo.ods" )
 SetMode( 40, 100 )
 cls
 altd()
-? cFile
-? ConvertToURL(cFile)
-? ConvertFromUrl(ConvertToURL(cFile))
 
-//hb_StarDesktop():loadComponentFromURL(cURL, cFrame, nSearchFlags, oProperties)
+oDoc := ShadowFormat():New()
+
+cFile := ConvertToURL(cFile)
+oDesktop := hb_StarDesktop()//:New()
+oDoc := oDesktop:loadComponentFromURL(cFile)  //, cFrame, nSearchFlags, oProperties)
 
 //oDoc := oOOlib():Load(cFile)
 oSheet := oDoc:getSheets:getByName("Folha1")

@@ -1,11 +1,11 @@
-//#require "hbwin"
-
-//#include "fileio.ch"
+#include "fileio.ch"
 #include "hbclass.ch"
-//#include "hxml.ch"
 
 CLASS hb_StarDesktop
-METHOD loadComponentFromURL(cURL, cFrame, nSearchFlags, oProperties)
+DATA aItems  INIT {}
+
+METHOD LoadComponentFromURL(cURL, cFrame, nSearchFlags, oProperties)
+METHOD Add(oDoc)
 ENDCLASS
 
 //---------------------------------------------------------------------//
@@ -18,7 +18,14 @@ HB_SYMBOL_UNUSED( oProperties )
 cFile := ConvertFromUrl(cURL)
 cTemp := HB_DirTemp() + HB_FNameName(cFile) + "_StarDesktop"
 OpenFile(cFile, , , cTemp)
-oDoc := document():Load()
+oDoc := oOOdocument():Load()
+::Add(oDoc)
+Return oDoc
+
+//---------------------------------------------------------------------//
+
+METHOD Add(oDoc)
+Aadd( ::aItems, oDoc )
 Return oDoc
 
 //---------------------------------------------------------------------//

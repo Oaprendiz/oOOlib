@@ -1,6 +1,6 @@
 #include "hbclass.ch"
 
-CLASS document
+CLASS oOOdocument
 DATA HasLocation
 DATA GetLocation
 DATA IsReadOnly
@@ -21,19 +21,19 @@ ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Load(cPath) CLASS document
+METHOD Load(cPath) CLASS oOOdocument
 ::Cargo := HXMLDoc():Read(cPath + "\content.xml")
 ::oBody := ::Cargo:aItems[1]:Find("office:body")
 Return Self
 
 //---------------------------------------------------------------------//
 
-METHOD getSheets() CLASS document
+METHOD getSheets() CLASS oOOdocument
 Return ::oBody:Find("office:spreadsheet")
 
 //---------------------------------------------------------------------//
 
-METHOD getByName(cName) CLASS document
+METHOD getByName(cName) CLASS oOOdocument
 Return ::oBody:Find("office:spreadsheet")
 
 //---------------------------------------------------------------------//
