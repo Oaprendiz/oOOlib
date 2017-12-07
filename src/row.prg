@@ -1,10 +1,9 @@
 #include "hbclass.ch"
 
 CLASS oOOrow
-DATA Cargo INIT {}
-DATA nSheets
+DATA aCell INIT {}
 
-METHOD Load(oSheets)
+METHOD Load(oRow)
 METHOD getByName(cName)
 METHOD getByIndex(nPos)
 METHOD Name(cName) SETGET
@@ -12,11 +11,17 @@ ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Load(oSheets) CLASS oOOrow
-LOCAL n
-for n := 1 to len(oSheets:aItems)
-   if oSheets:aItems[n]:Title == "table:table"
-      aadd(::Cargo, oSheets:aItems[n])
+METHOD Load(oRow) CLASS oOOrow
+LOCAL n, x, nCol
+for n := 1 to len(oRow:aItems)
+   if oRow:aItems[n]:Title == "table:table-cell"
+      if !(nCol := oRow:aItems[n]:GetAttribute("table:number-columns-repeated", "N")) == NIL
+         for x := 1 to nCol
+            aadd(::aCell, oOOcell())
+         next
+      else
+         aadd(::aCell, oOOcell():Load(oRow:aItems[n]))
+      endif
    endif
 next n
 Return Self
@@ -27,7 +32,7 @@ METHOD Name(cName) CLASS oOOrow
 LOCAL n
 for n := 1 to len(::Cargo)
    if ::Cargo[n]:GetAttribute("table:name") == cName
-      ? "ERRO o nome j· existe " + cName
+      ? "ERRO o nome j√° existe " + cName
    endif
 next n
 Return cName

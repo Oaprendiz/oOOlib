@@ -6,6 +6,15 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+2017-12-07 21:31 UTC Oaprendiz (jorgenunes5 gmail.com)
+  * src/cell.prg
+  * src/desktop.prg
+  * src/document.prg
+  * src/row.prg
+  * src/sheet.prg
+    ;Melhoria nos METHOD Load
+  * test/test001.prg
+
 2017-12-03 21:50 UTC+0000 Oaprendiz (jorgenunes5 gmail.com)
   * src/desktop.prg
     + DATA aItems

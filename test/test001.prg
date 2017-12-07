@@ -6,13 +6,15 @@ SetMode( 40, 100 )
 cls
 altd()
 
-oDoc := ShadowFormat():New()
-
+//oDoc := ShadowFormat():New()
+? cFile
 cFile := ConvertToURL(cFile)
+? cFile
 oDesktop := hb_StarDesktop()//:New()
-oDoc := oDesktop:loadComponentFromURL(cFile)  //, cFrame, nSearchFlags, oProperties)
 
-//oDoc := oOOlib():Load(cFile)
+oDoc := oDesktop:loadComponentFromURL(cFile)  //, cFrame, nSearchFlags, oProperties)
+? oDoc:cFile
+altd()
 oSheet := oDoc:getSheets:getByName("Folha1")
 oSheet := oDoc:getSheets:getByIndex(2)
 //oSheet:getCellByPosition( 0, nLine ):setValue( oResultado:Fields( 0 ):Value)

@@ -10,6 +10,7 @@ DATA cFormula
 DATA cType     INIT "empty"
 DATA aProperty INIT {}
 
+METHOD Load(oCell)
 METHOD Value(nValue) SETGET
 METHOD String(cValue) SETGET
 METHOD Formula(cValue) SETGET
@@ -23,45 +24,75 @@ ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Value(nValue) CLASS oOOcell
-IF !HB_ISNUMERIC( nValue )
-   ? "ERRO o valor tem que ser numérico"
+METHOD Load(oCell) CLASS oOOcell
+LOCAL n
+if oCell:GetAttribute("office:value-type") == "string"
+   ::String := oCell:aItems[1]:aItems[1]  //oCell:Find("text:p"):aItems[1]
+elseif oCell:GetAttribute("office:value-type") == "float"
+   if !HB_ISNIL(oCell:GetAttribute("table:formula"))
+      ::Formula(oCell:GetAttribute("table:formula"),;
+                oCell:GetAttribute("office:value-type"),;
+                oCell:aItems[1]:aItems[1])
+   else
+      ::Value := Val(oCell:aItems[1]:aItems[1])
+   endif
+elseif oCell:GetAttribute("office:value-type") == "currency"
+elseif oCell:GetAttribute("office:value-type") == "date"
+elseif !empty(oCell:GetAttribute("office:value-type"))
+   ? oCell:GetAttribute("office:value-type")
    altd()
-ENDIF
-::nValue   := nValue
-::cString  := alltrim(str(nValue))
-::cFormula := nil
-::cType    := "float"
+   wait
+   quit
+endif
 Return Self
 
 //---------------------------------------------------------------------//
 
+METHOD Value(nValue) CLASS oOOcell
+IF !HB_ISNIL(nValue)
+   IF !HB_ISNUMERIC( nValue )
+      ? "ERRO o valor tem que ser numÃ©rico"
+      altd()
+   ENDIF
+   ::nValue   := nValue
+   ::cString  := alltrim(str(nValue))
+   ::cFormula := nil
+   ::cType    := "float"
+ENDIF
+Return nValue
+
+//---------------------------------------------------------------------//
+
 METHOD String(cValue) CLASS oOOcell
-IF !HB_ISSTRING( cValue ) .and. !HB_ISNUMERIC( nValue )
-   ? "ERRO o valor tem que ser texto ou numérico"
-   altd()
+IF !HB_ISNIL(cValue)
+   IF !HB_ISSTRING( cValue ) .and. !HB_ISNUMERIC( cValue )
+      ? "ERRO o valor tem que ser texto ou numÃ©rico"
+      altd()
+   ENDIF
+   IF HB_ISNUMERIC( cValue )
+      cValue := alltrim(str(cValue))
+   ENDIF
+   ::nValue   := nil
+   ::cString  := cValue
+   ::cFormula := nil
+   ::cType    := "string"
 ENDIF
-IF HB_ISNUMERIC( nValue )
-   cValue := alltrim(str(nValue))
-ENDIF
-::nValue   := nil
-::cString  := cValue
-::cFormula := nil
-::cType    := "string"
 Return cValue
 
 //---------------------------------------------------------------------//
 
-METHOD Formula(cValue) CLASS oOOcell
-IF !HB_ISSTRING( cValue )
-   ? "ERRO o valor tem que ser texto"
-   altd()
+METHOD Formula(cFormula, nValue, cValue) CLASS oOOcell
+IF !HB_ISNIL(cFormula)
+   IF !HB_ISSTRING( cFormula )
+      ? "ERRO o valor tem que ser texto"
+      altd()
+   ENDIF
+   ::nValue   := nValue
+   ::cString  := cValue
+   ::cFormula := cFormula
+   ::cType    := "formula"
 ENDIF
-::nValue   := nil    //corregir
-::cString  := nil    //corregir
-::cFormula := cValue
-::cType    := "formula"
-Return cValue
+Return cFormula
 
 //---------------------------------------------------------------------//
 

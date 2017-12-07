@@ -18,7 +18,7 @@ HB_SYMBOL_UNUSED( oProperties )
 cFile := ConvertFromUrl(cURL)
 cTemp := HB_DirTemp() + HB_FNameName(cFile) + "_StarDesktop"
 OpenFile(cFile, , , cTemp)
-oDoc := oOOdocument():Load()
+oDoc := oOOdocument():Load(cTemp, cFile)
 ::Add(oDoc)
 Return oDoc
 

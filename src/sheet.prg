@@ -1,8 +1,9 @@
 #include "hbclass.ch"
 
 CLASS oOOsheet
-DATA Cargo INIT {}
-DATA nSheets
+DATA aRow INIT {}
+DATA cName
+DATA cStyle
 
 METHOD Load(oSheets)
 METHOD getByName(cName)
@@ -19,11 +20,19 @@ ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Load(oSheets) CLASS oOOsheet
-LOCAL n
-for n := 1 to len(oSheets:aItems)
-   if oSheets:aItems[n]:Title == "table:table"
-      aadd(::Cargo, oSheets:aItems[n])
+METHOD Load(oSheet) CLASS oOOsheet
+LOCAL n, x, nRow
+::cName  := oSheet:GetAttribute( "table:name" )
+::cStyle := oSheet:GetAttribute( "table:style-name" )
+for n := 1 to len(oSheet:aItems)
+   if oSheet:aItems[n]:Title == "table:table-row"
+      if !(nRow := oSheet:aItems[n]:GetAttribute("table:number-rows-repeated", "N")) == NIL
+         for x := 1 to nRow
+            aadd(::aRow, oOOrow():Load(oSheet:aItems[n]))
+         next
+      else
+         aadd(::aRow, oOOrow():Load(oSheet:aItems[n]))
+      endif
    endif
 next n
 Return Self

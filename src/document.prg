@@ -4,10 +4,11 @@ CLASS oOOdocument
 DATA HasLocation
 DATA GetLocation
 DATA IsReadOnly
+DATA cFile
 
 DATA Cargo
-DATA oBody
-
+DATA oSheet
+DATA aSheets INIT {}
 METHOD Load(cPath)
 METHOD Store() VIRTUAL
 METHOD StoreAsURL(cURL, oProperties) VIRTUAL       //save as...
@@ -21,9 +22,17 @@ ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Load(cPath) CLASS oOOdocument
+METHOD Load(cPath, cFile) CLASS oOOdocument
+LOCAL n
+::cFile := cFile
 ::Cargo := HXMLDoc():Read(cPath + "\content.xml")
-::oBody := ::Cargo:aItems[1]:Find("office:body")
+::oSheet := ::Cargo:aItems[1]:Find("office:body"):Find("office:spreadsheet")
+FOR n := 1 TO len(::oSheet:aItems)
+   if ::oSheet:aItems[n]:Title == "table:table"
+   //altd()
+      aadd(::aSheets, oOOsheet():Load(::oSheet:aItems[n]))
+   endif
+NEXT
 Return Self
 
 //---------------------------------------------------------------------//
