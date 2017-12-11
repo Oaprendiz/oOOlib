@@ -5,15 +5,17 @@
 
 CLASS oOOcell
 DATA nValue
-DATA cString
+DATA cValue
 DATA cFormula
-DATA cType     INIT "empty"
+DATA cMoeda
+DATA dDate
+DATA cType     INIT "empty"   // string, float, currency, date
 DATA aProperty INIT {}
 
 METHOD Load(oCell)
-METHOD Value(nValue) SETGET
-METHOD String(cValue) SETGET
-METHOD Formula(cValue) SETGET
+METHOD Value(nValue)
+METHOD String(cValue)
+METHOD Formula(cValue)
 METHOD setPropertyValue(cProperty, xValue)
 METHOD getPropertyValue(cProperty)
 METHOD delProperty(cProperty)
@@ -27,17 +29,50 @@ ENDCLASS
 METHOD Load(oCell) CLASS oOOcell
 LOCAL n
 if oCell:GetAttribute("office:value-type") == "string"
-   ::String := oCell:aItems[1]:aItems[1]  //oCell:Find("text:p"):aItems[1]
+   if !HB_ISNIL(oCell:GetAttribute("table:formula"))
+      ::cFormula := oCell:GetAttribute("table:formula")
+      ::nValue := nil
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cType := "string"
+   else
+      ::cValue := oCell:aItems[1]:aItems[1]  //oCell:Find("text:p"):aItems[1]
+      ::nValue := nil
+      ::cType := "string"
+   endif
 elseif oCell:GetAttribute("office:value-type") == "float"
    if !HB_ISNIL(oCell:GetAttribute("table:formula"))
-      ::Formula(oCell:GetAttribute("table:formula"),;
-                oCell:GetAttribute("office:value-type"),;
-                oCell:aItems[1]:aItems[1])
+      ::cFormula := oCell:GetAttribute("table:formula")
+      ::nValue := oCell:GetAttribute("office:value-type", "N")
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cType := "formula"
    else
-      ::Value := Val(oCell:aItems[1]:aItems[1])
+      ::nValue := oCell:GetAttribute("office:value-type", "N")
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cType  := "float"
    endif
 elseif oCell:GetAttribute("office:value-type") == "currency"
+   if !HB_ISNIL(oCell:GetAttribute("table:formula"))
+      ::cFormula := oCell:GetAttribute("table:formula")
+      ::nValue := oCell:GetAttribute("office:value-type", "N")
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cType := "formula"
+   else
+      ::nValue := oCell:GetAttribute("office:value-type", "N")
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cMoeda := oCell:GetAttribute("office:currency")
+      ::cType  := "currency"
+   endif
 elseif oCell:GetAttribute("office:value-type") == "date"
+   if !HB_ISNIL(oCell:GetAttribute("table:formula"))
+      ::cFormula := oCell:GetAttribute("table:formula")
+      ::nValue := oCell:GetAttribute("office:value-type", "N")
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cType := "formula"
+   else
+      ::dDate  := oCell:GetAttribute("office:date-value", "D")
+      ::cValue := oCell:aItems[1]:aItems[1]
+      ::cType  := "date"
+   endif
 elseif !empty(oCell:GetAttribute("office:value-type"))
    ? oCell:GetAttribute("office:value-type")
    altd()
@@ -55,11 +90,11 @@ IF !HB_ISNIL(nValue)
       altd()
    ENDIF
    ::nValue   := nValue
-   ::cString  := alltrim(str(nValue))
+   ::cValue   := alltrim(str(nValue))
    ::cFormula := nil
    ::cType    := "float"
 ENDIF
-Return nValue
+Return ::nValue
 
 //---------------------------------------------------------------------//
 
@@ -73,26 +108,26 @@ IF !HB_ISNIL(cValue)
       cValue := alltrim(str(cValue))
    ENDIF
    ::nValue   := nil
-   ::cString  := cValue
+   ::cValue  := cValue
    ::cFormula := nil
    ::cType    := "string"
 ENDIF
-Return cValue
+Return ::cValue
 
 //---------------------------------------------------------------------//
 
-METHOD Formula(cFormula, nValue, cValue) CLASS oOOcell
+METHOD Formula(cFormula) CLASS oOOcell
 IF !HB_ISNIL(cFormula)
    IF !HB_ISSTRING( cFormula )
       ? "ERRO o valor tem que ser texto"
       altd()
    ENDIF
-   ::nValue   := nValue
-   ::cString  := cValue
+   ::nValue   := nil
+   ::cValue  := nil
    ::cFormula := cFormula
    ::cType    := "formula"
 ENDIF
-Return cFormula
+Return ::cFormula
 
 //---------------------------------------------------------------------//
 

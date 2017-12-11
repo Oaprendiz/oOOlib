@@ -6,6 +6,13 @@
      * Change, ! Fix, % Optimization, + Addition, - Removal, ; Comment
  */
 
+2017-12-11 22:20 UTC Oaprendiz (jorgenunes5 gmail.com)
+  * src/cell.prg
+    ; melhoria da leitura das celulas
+  * src/document.prg
+  * src/sheet.prg
+    ; selecionar sheet
+
 2017-12-07 21:31 UTC Oaprendiz (jorgenunes5 gmail.com)
   * src/cell.prg
   * src/desktop.prg

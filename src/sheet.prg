@@ -4,6 +4,7 @@ CLASS oOOsheet
 DATA aRow INIT {}
 DATA cName
 DATA cStyle
+DATA oParent
 
 METHOD Load(oSheets)
 METHOD getByName(cName)
@@ -20,10 +21,11 @@ ENDCLASS
 
 //---------------------------------------------------------------------//
 
-METHOD Load(oSheet) CLASS oOOsheet
+METHOD Load(oSheet, oParent) CLASS oOOsheet
 LOCAL n, x, nRow
 ::cName  := oSheet:GetAttribute( "table:name" )
 ::cStyle := oSheet:GetAttribute( "table:style-name" )
+::oParent := oParent
 for n := 1 to len(oSheet:aItems)
    if oSheet:aItems[n]:Title == "table:table-row"
       if !(nRow := oSheet:aItems[n]:GetAttribute("table:number-rows-repeated", "N")) == NIL
@@ -51,13 +53,7 @@ Return cName
 //---------------------------------------------------------------------//
 
 METHOD getByName(cName) CLASS oOOsheet
-LOCAL n
-for n := 1 to len(::Cargo)
-   if ::Cargo[n]:GetAttribute("table:name") == cName
-      RETURN ::Cargo[n]
-   endif
-next n
-Return nil
+Return ::oParent:getByName(cName)
 
 //---------------------------------------------------------------------//
 
